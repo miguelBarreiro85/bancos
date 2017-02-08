@@ -7,7 +7,7 @@ $(function(){
         var formData = new FormData();
         /* Add the file */ 
         formData.append("upload", file.files[0]);
-        client.open("post", "http://localhost:8080/api/file", true);
+        client.open("post", "http://localhost:7777/api/file", true);
         client.send(formData);  /* Send to server */ 
              
            /* Check the response status */  

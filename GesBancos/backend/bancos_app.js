@@ -41,7 +41,7 @@ server.get(/^\/(?!api\/).*/, restify.serveStatic({
 }));
 
 database.connect(url, () => {
-    server.listen(8080, () => console.log('%s listening at %s', server.name, server.url));
+    server.listen(7777, () => console.log('%s listening at %s', server.name, server.url));
     // Websocket is initialized after the server
     //websocket.init(server.server);
 });

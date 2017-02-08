@@ -21,7 +21,7 @@
                         }
                     }
                 }; 
-            xmlHttpTwo.open("GET", "http://localhost:8080/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
             xmlHttpTwo.send();
         });        
     });
@@ -43,7 +43,7 @@
                         }   
                     }
                 }; 
-            xmlHttpTwo.open("GET", "http://localhost:8080/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
             xmlHttpTwo.send();                  
         });        
     });
@@ -55,7 +55,7 @@
             var formData = new FormData(formElement);
             dataI = parseInt(dataI.slice(0,4)+dataI.slice(5,7)+dataI.slice(8,10));
             formData.set("data",dataI);
-            xmlHttp.open("POST", "http://localhost:8080/api/cheques",true);
+            xmlHttp.open("POST", "http://localhost:7777/api/cheques",true);
             xmlHttp.send(formData);
         });        
     });
@@ -78,7 +78,7 @@
                         }
                     }            
                 }; 
-            xmlHttpTwo.open("GET", "http://localhost:8080/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
             xmlHttpTwo.send();
         });        
     });
@@ -95,7 +95,7 @@
                     }
                 }; 
             var numCheque = parseInt($("#numeroCheque").val());
-            xmlHttpTwo.open("GET", "http://localhost:8080/api/cheques/"+numCheque, true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques/"+numCheque, true);
             xmlHttpTwo.send();
         });        
     });
