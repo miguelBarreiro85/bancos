@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="cheque.css">
+<title>Page Title</title>
+</head>
+<body>
+	<div class="form-inline">
+		<div id="body" class="form-group">
+			<h1 id="bannerTxt">MLP BARREIRO</h1>
+			<form id="chequeInfo">
+			  <h4>Movimento</h4>
+			  <select id="movimento" name="movimento">
+			    <option value="cheque">Cheque</option>
+			    <option value="trf">Transferencia</option>
+			    <option value="deposito">Deposito</option>
+			    <option value="comissao">Comissão</option>
+			    <option value="imposto">Imposto</option>
+			  </select>
+			  <input id="numeroCheque" class="form-control" type="text" name="numero">
+			  <input id="procuraNum" class="btn btn-default" type="button" value = "Procurar por Movimento">
+			  <h4>Valor</h4>
+			  <input type="float" class="form-control" name="valor">
+			  <input id="procuraValorEntrada" class="btn btn-default" type="button" value = "Procura por valor">
+			  <h4>Data deposito(data inicial pesquisa) &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Data Final Pesquisa</h4>
+			  <input id="dataInicial" type="date" name="data">
+			  <input id="dataFinal" type="date" name="dataFinal">
+			  <input id="procuraData" class="btn btn-default" type="button" value = "Procura por Data">
+			  <h4>Fornecedor</h4>
+			  <input type="text" name="fornecedor">
+			  <input id="procuraFornecedor" type="submit" value="Procura por Fornecedor">
+			  <br>
+			  <input id="enviaCheque" class="btn btn-default" type="submit" value="Submit">
+			</form>
+			<input id="recebeCheques" class="btn btn-default" type="submit" value="Ler cheques">
+			<input id="recebeSaldos" class="btn btn-default" type="submit" value="Ler Saldo">
+			<input id="limparTabela" class="btn btn-default" type="submit" value="Limpar Tabela">
+		</div>
+		<div class="col-md-6">
+	        <table class="table table-bordered" id="tableOne">
+	           <thead>
+	              <tr>
+	                 <th>Numero Cheque<br>Movimento</th>
+	                 <th>Valor Movimento</th>
+	                 <th>Saldo</th>
+	                 <th>Data</th>
+	              </tr>
+	           </thead>
+	           <tbody>
+	           </tbody>
+	        </table>
+	    </div>
+	</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="js/cheque.js"></script>
+<script src="js/exl2json.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
