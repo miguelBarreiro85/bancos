@@ -1,0 +1,16 @@
+//----------------------->para usar id incrmetental
+
+https://docs.mongodb.com/v3.0/tutorial/create-an-auto-incrementing-field/
+
+
+//------------------------>para ler text da base dados
+
+There are several options for enabling the beta text search feature in MongoDB 2.4:
+
+in your MongoDB configuration file with:
+setParameter=textSearchEnabled=true
+via the command-line when you start mongod:
+
+mongod --setParameter textSearchEnabled=true
+via the mongo shell:
+db.adminCommand( { setParameter: true, textSearchEnabled : true})

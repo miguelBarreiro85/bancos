@@ -1,0 +1,16 @@
+body {
+	background-color: grey;
+	color: white;
+}
+
+td{
+	border: 1px solid white;
+}
+
+#tables{
+	display: inline-block;
+}
+
+.form-control{
+	width: 100px;
+}
