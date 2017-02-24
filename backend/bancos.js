@@ -10,8 +10,30 @@ const movimentos = module.exports = {};
 let settings = {};
 
 function handleError(err, response, next) {
+    console.log(err);
     response.send(500, err);
     next();
+}
+
+function getNextId(){
+    return new Promise(function(resolve,reject){
+    database.db.collection('counters')
+        .findOneAndUpdate(
+            { _id: 'movId', $isolated : 1 },
+            { $inc: { "seq": 1 } },
+            {returnOriginal: false,
+             maxTimeMS:0,
+             upsert: true}
+        )
+       .then(movId =>{
+            let nextid=movId.value.seq;
+            resolve(nextid);
+       })
+       .catch(err=>{
+            console.log('ERR'+err);
+            reject(err);
+       });
+    });
 }
 
 function getCheque(request, response, next) {
@@ -49,42 +71,51 @@ function getCheques(request, response, next) {
 }
 
 function createCheque(request, response, next) {
+    let mov = request.body.numero;
+    let tipoMov = request.body.tipoMov;
+    console.log("Request"+request.body);
     if (request.body === undefined) {
         response.send(400, 'No player data');
         return next();
     }
     database.db.collection('cheques')
         .findOne({
-            numero: request.body.numero
+            //numero: request.body.numero
+            tipoMov : request.body.tipoMov,
+            $text: { $search: mov }
         })
         .then((cheque) => {
             if (cheque === null) 
             {
                 getSaldo().then(saldoM=>{
-                    console.log("SALDO:"+saldoM);                    
-                    console.log("bodySALDO:"+request.body.saldo);
                     if(isNaN(saldoM)){
-                        console.log("Isnot a number");
                         request.body.saldo = request.body.valor;    
                     }else if(!isNaN(saldoM)){
-                        console.log("is na number");
                         request.body.saldo = parseFloat(request.body.valor)+parseFloat(saldoM);
                     }
-                    console.log("bodySALDO:"+request.body.saldo);
-                    database.db.collection('cheques')
-                    .insertOne(request.body)
-                    .then(result => returnPlayer(result.insertedId, response, next))
-                    .catch(err => handleError(err, response, next));
-                return next();    
-                },
-                rejec=>{
-                    console.log("NO SALDO ON COLLECTIONS: "+rejec);
-                    request.body.saldo = request.body.valor;
-                    database.db.collection('cheques')
-                    .insertOne(request.body)
-                    .then(result => returnPlayer(result.insertedId, response, next))
-                    .catch(err => handleError(err, response, next));
-            });
+                    //GETNEXTID
+                    getNextId().then(nextId=>{
+                        console.log("nextId"+nextId);
+                        request.body.movId = nextId;
+                        database.db.collection('cheques')
+                            .insertOne(request.body)
+                            .then(result => {
+                                console.log("Movimento Inserido");
+                                response.send(200,"Movimento inserido");
+                                return next();
+                            })
+                            .catch(err => handleError(err, response, next));    
+                    })
+                        
+                    },
+                    rejec=>{
+                        console.log("NO SALDO ON COLLECTIONS: "+rejec);
+                        request.body.saldo = request.body.valor;
+                        database.db.collection('cheques')
+                        .insertOne(request.body)
+                            .then(result => returnPlayer(result.insertedId, response, next))
+                            .catch(err => handleError(err, response, next));
+                });
             } else {
                 response.json({
                     Response: 'False',
