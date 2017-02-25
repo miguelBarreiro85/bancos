@@ -2,6 +2,7 @@
     'use strict';
     $(function() {
         $("#procuraData").click(function(){
+            limpaTabela();
             var dataF=$("#dataFinal").val();
             var dataI=$("#dataInicial").val();
             var dataFi= parseInt(dataF.slice(0,4)+dataF.slice(5,7)+dataF.slice(8,10));
@@ -21,33 +22,36 @@
                         }
                     }
                 }; 
-            xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
             xmlHttpTwo.send();
         });        
     });
     $(function() {
         $("#enviaCheque").click(function(){
             if (validateForm()){
-                console.log("true");
-                var xmlHttp = new XMLHttpRequest();
-                var formElement = document.querySelector("#chequeInfo");
-                var dataI=String($("#dataInicial").val());
-                var formData = new FormData(formElement);
-                dataI = parseInt(dataI.slice(0,4)+dataI.slice(5,7)+dataI.slice(8,10));
-                formData.set("data",dataI);
-                formData.append("saldo",0);
-                formData.append("movId",0);
-                var mov = $("#movimento").val();
-                formData.append("tipoMov",mov);
-                xmlHttp.onreadystatechange = function ()
-                {
-                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
-                    {                                                           
-                        alert(xmlHttp.response);    
+                var r=confirm("Deseja submeter o movimento");
+                if(r){
+                    console.log("true");
+                    var xmlHttp = new XMLHttpRequest();
+                    var formElement = document.querySelector("#chequeInfo");
+                    var dataI=String($("#dataInicial").val());
+                    var formData = new FormData(formElement);
+                    dataI = parseInt(dataI.slice(0,4)+dataI.slice(5,7)+dataI.slice(8,10));
+                    formData.set("data",dataI);
+                    formData.append("saldo",0);
+                    formData.append("movId",0);
+                    var mov = $("#movimento").val();
+                    formData.append("tipoMov",mov);
+                    xmlHttp.onreadystatechange = function ()
+                    {
+                        if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                        {                                                           
+                            alert(xmlHttp.response);    
+                        }
                     }
+                    xmlHttp.open("POST", "http://localhost:7777/api/cheques");
+                    xmlHttp.send(formData);
                 }
-                xmlHttp.open("POST", "http://54.149.62.18:7777/api/cheques");
-                xmlHttp.send(formData);
             }else{console.log("false");}
         });        
     });
@@ -95,10 +99,10 @@
                     }            
                 }; 
             if(numCheque!=""){
-                xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques/"+tipoMovimento+","+numCheque, true);
+                xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques/"+tipoMovimento+","+numCheque, true);
                 xmlHttpTwo.send();
             }else if(numCheque==""){
-                xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques", true);
+                xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
                 xmlHttpTwo.send();
             }
             
@@ -127,7 +131,7 @@
                     }
                 }; 
             var numCheque = parseInt($("#numeroCheque").val());
-            xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
             xmlHttpTwo.send();
         });        
     });
@@ -143,7 +147,7 @@
                     }
                 }; 
             var numCheque = parseInt($("#numeroCheque").val());
-            xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques/"+numCheque, true);
+            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques/"+numCheque, true);
             xmlHttpTwo.send();
         });        
     });
@@ -162,18 +166,21 @@
     }
     $(function(){
         $("#apagarMovimento").click(function(){
-            var idMov=$("#numeroCheque").val();
-            var xmlHttpTwo = new XMLHttpRequest();
-                xmlHttpTwo.onreadystatechange = function ()
-                {
-                    if (xmlHttpTwo.readyState === 4 && xmlHttpTwo.status === 200)
-                    {                                                           
-                        var res= JSON.parse(xmlHttpTwo.responseText);
-                        console.log(res); 
-                    }
-                }; 
-            xmlHttpTwo.open("DELETE", "http://54.149.62.18:7777/api/cheques/"+idMov, true);
-            xmlHttpTwo.send();
+            var r = confirm("Tem a certeza que quer apagar este movimento?");
+            if(r){
+                var idMov=$("#numeroCheque").val();
+                var xmlHttpTwo = new XMLHttpRequest();
+                    xmlHttpTwo.onreadystatechange = function ()
+                    {
+                        if (xmlHttpTwo.readyState === 4 && xmlHttpTwo.status === 200)
+                        {                                                           
+                            var res= JSON.parse(xmlHttpTwo.responseText);
+                            console.log(res); 
+                        }
+                    }; 
+                xmlHttpTwo.open("DELETE", "http://localhost:7777/api/cheques/"+idMov, true);
+                xmlHttpTwo.send();
+            }
         })
     }); 
     $(function() {
