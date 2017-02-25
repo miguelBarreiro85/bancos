@@ -98,7 +98,7 @@ parseXlsx('movimentos.xlsx', function(err, data) {
                 valor = parseFloat(valor);
             }
             console.log("new Valor:"+valor);
-            saldo = saldo + valor;
+            //saldo = saldo + valor;
             //------------Trabalha as datas
             var dataStr = data[i][0].toString();
             dataStr = dataStr.slice(6,10)+dataStr.slice(3,5)+dataStr.slice(0,2);
@@ -113,15 +113,17 @@ parseXlsx('movimentos.xlsx', function(err, data) {
             if (stringMov.match(trf)){
                 mov = "trfR";
             }
-            var movId = 0;
+            let movId = 0;
                 switch (mov) {
-                    case "CHEQUE":
+                    /*case "CHEQUE":
                         json = {"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"cheque","saldo":saldo};
-                        break;
+                        break;*/
                     case "DEPOSITO":
+                        saldo = saldo + valor;
                         json = {"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"deposito","saldo":saldo};
                         break;
                     case "TRF":
+                        saldo = saldo + valor;
                         if(parseFloat(data[i][2])>0){
                             json ={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"trfRecebida","saldo":saldo};
                             break;
@@ -130,32 +132,41 @@ parseXlsx('movimentos.xlsx', function(err, data) {
                             break;
                         }
                     case "tpa":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"tpa","saldo":saldo};
                         break;
                     case "ENTREGA":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"entrega","saldo":saldo};
                         break;
                     case "COBRANCA":
                     case "COBR":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"cobranca","saldo":saldo};
                         break;
                     case "IMPOSTO":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"imposto","saldo":saldo};
                         break;
                     case "trfR":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"trfRecebida","saldo":saldo};
                         break;
                     case "PAGAMENTO":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"pagamentoServicos","saldo":saldo};
                         break;
                     case "MENSALIDADE":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"mensalidade","saldo":saldo};
                         break;
                     case "COMISSAO":
                     case "COMISSOES":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"comissoes","saldo":saldo};
                         break;
                     case "DEVOLUCAO":
+                        saldo = saldo + valor;
                         json={"movId":movId,"data":dataStr,"numero":data[i][1],"valor":data[i][2],"tipoMov":"devolucao","saldo":saldo};
                         break;
                     default: 
