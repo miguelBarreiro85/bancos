@@ -22,7 +22,7 @@
                         }
                     }
                 }; 
-            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques", true);
             xmlHttpTwo.send();
         });        
     });
@@ -49,7 +49,7 @@
                             alert(xmlHttp.response);    
                         }
                     }
-                    xmlHttp.open("POST", "http://localhost:7777/api/cheques");
+                    xmlHttp.open("POST", "http://54.149.62.18:7777/api/cheques");
                     xmlHttp.send(formData);
                 }
             }else{console.log("false");}
@@ -99,10 +99,10 @@
                     }            
                 }; 
             if(numCheque!=""){
-                xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques/"+tipoMovimento+","+numCheque, true);
+                xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques/"+tipoMovimento+","+numCheque, true);
                 xmlHttpTwo.send();
             }else if(numCheque==""){
-                xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
+                xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques", true);
                 xmlHttpTwo.send();
             }
             
@@ -131,7 +131,7 @@
                     }
                 }; 
             var numCheque = parseInt($("#numeroCheque").val());
-            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques", true);
+            xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques", true);
             xmlHttpTwo.send();
         });        
     });
@@ -147,7 +147,7 @@
                     }
                 }; 
             var numCheque = parseInt($("#numeroCheque").val());
-            xmlHttpTwo.open("GET", "http://localhost:7777/api/cheques/"+numCheque, true);
+            xmlHttpTwo.open("GET", "http://54.149.62.18:7777/api/cheques/"+numCheque, true);
             xmlHttpTwo.send();
         });        
     });
@@ -178,7 +178,7 @@
                             console.log(res); 
                         }
                     }; 
-                xmlHttpTwo.open("DELETE", "http://localhost:7777/api/cheques/"+idMov, true);
+                xmlHttpTwo.open("DELETE", "http://54.149.62.18:7777/api/cheques/"+idMov, true);
                 xmlHttpTwo.send();
             }
         })
